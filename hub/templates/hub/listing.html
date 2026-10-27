@@ -1,0 +1,8 @@
+{% extends "hub/base.html" %}
+{% block title %}{{ title }} · DreamSpaceHub{% endblock %}
+{% block main %}
+<div class="{% if kind == 'service' %}svc-theme{% else %}ind-theme{% endif %}">
+<section class="pagehead"><p class="eyebrow">{% if kind == 'service' %}What we do{% else %}Who it&rsquo;s for{% endif %}</p><h1>{{ title }}</h1><p class="lead2">{{ intro }}</p></section>
+<section class="flush">{% include "hub/_cards.html" %}</section>
+</div>
+{% endblock %}

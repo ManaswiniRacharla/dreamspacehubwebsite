@@ -1,0 +1,88 @@
+{% extends "hub/base.html" %}
+{% block title %}Franchise · DreamSpaceHub{% endblock %}
+{% block main %}
+
+<!-- HERO: navy, copper rings, blueprint floor plan -->
+<section class="fr2-hero">
+  <div class="fr2-hero-copy">
+    <p class="fr-badge">{{ fr.eyebrow }}</p>
+    <h1>Studio Franchise <em>Models.</em></h1>
+    <p class="lead2">{{ fr.lead }}</p>
+    <div class="row">
+      <a class="btn dream" data-compose href="mailto:manuvinny1234@gmail.com?subject=Franchise%20Enquiry%20-%20DreamSpaceHub%20Studio&amp;body=Hi%20DreamSpaceHub%20team%2C%0A%0AI%20would%20like%20to%20know%20more%20about%20a%20DreamSpaceHub%20studio%20franchise.%20Please%20find%20my%20details%20below.%0A%0AFull%20name%3A%20%0APhone%20number%3A%20%0AEmail%3A%20%0ACity%20%2F%20location%20for%20the%20studio%3A%20%0AModel%20of%20interest%20%28FOFO%20%2F%20FOCO%20%2F%20not%20sure%20yet%29%3A%20%0ADo%20you%20already%20have%20a%20space%3F%20%28size%20in%20sq%20ft%29%3A%20%0AInvestment%20you%20are%20planning%20%28in%20Rs%20lakhs%29%3A%20%0ACurrent%20business%20%2F%20work%20experience%3A%20%0AExpected%20start%20date%3A%20%0ABest%20time%20for%20a%20call%3A%20%0A%0AThank%20you.">Enquire about franchising</a>
+      <a class="btn" href="#models">Compare the models</a>
+    </div>
+  </div>
+  <div class="fr2-plan" aria-hidden="true">
+    <svg viewBox="0 0 440 340" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#D0743C" stroke-width="2">
+        <rect x="50" y="50" width="340" height="220"/>
+        <path d="M50 150 H190 M270 50 V150 M270 190 V270 M190 150 V190"/>
+        <path d="M190 190 H270" stroke-dasharray="5 6"/>
+      </g>
+      <g stroke="rgba(244,239,230,.55)" stroke-width="1.4">
+        <path d="M50 230 a28 28 0 0 1 28 -28"/>
+        <path d="M270 110 a28 28 0 0 0 -28 -28"/>
+        <rect x="300" y="80" width="60" height="38" rx="3"/>
+        <rect x="80" y="70" width="70" height="46" rx="3"/>
+        <circle cx="330" cy="225" r="20"/>
+      </g>
+      <g class="fr2-dim" stroke="rgba(244,239,230,.8)" stroke-width="1.2">
+        <path d="M50 300 H390 M50 292 V308 M390 292 V308"/>
+        <path d="M418 50 V270 M410 50 H426 M410 270 H426"/>
+      </g>
+      <g fill="#F4EFE6" font-family="Manrope,sans-serif" font-size="12" font-weight="700" letter-spacing="2">
+        <text x="220" y="324" text-anchor="middle">2,100 – 3,500 SQ FT</text>
+        <text transform="translate(438 160) rotate(90)" text-anchor="middle" x="0" y="0">14 FT CEILING</text>
+      </g>
+      <g fill="#D0743C"><circle cx="50" cy="50" r="4"/><circle cx="390" cy="50" r="4"/><circle cx="390" cy="270" r="4"/><circle cx="50" cy="270" r="4"/></g>
+    </svg>
+  </div>
+</section>
+
+<!-- AT A GLANCE -->
+<section class="fr2-glance">
+  <ul>
+    <li><b>2</b><span>Franchise models</span></li>
+    <li><b>2,100<i>+</i></b><span>Sq ft studio space</span></li>
+    <li><b>14<i>ft</i></b><span>Ceiling height</span></li>
+    <li><b>3<i>yr</i></b><span>FOCO lock-in</span></li>
+  </ul>
+</section>
+
+<!-- MODELS: warm cream, tabs + split cards -->
+<section class="fr2-models fr-theme" id="models">
+  <p class="eyebrow">{{ fr.models_eyebrow }}</p>
+  <h2>{{ fr.models_title }}</h2>
+  <p class="fr-sub">{{ fr.models_lead }}</p>
+
+  <div class="fr-tabs" role="tablist" aria-label="Franchise model">
+    {% for m in models %}<button class="fr-tab" type="button" role="tab" id="tab-{{ m.key }}" aria-controls="panel-{{ m.key }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ m.key }}</button>{% endfor %}
+  </div>
+
+  {% for m in models %}
+  <article class="fr-card" role="tabpanel" id="panel-{{ m.key }}" aria-labelledby="tab-{{ m.key }}">
+    <div class="fr-side">
+      <span class="fr-key" aria-hidden="true">{{ m.key }}</span>
+      <h3>{{ m.title }}</h3>
+      <p class="fr-label">Estimated charges &amp; fees</p>
+      <p class="fr-fees">{{ m.fees }}</p>
+    </div>
+    <div class="fr-main">
+      <p class="fr-label">Terms &amp; conditions (T&amp;C)</p>
+      <ol class="fr-terms">{% for t in m.terms %}<li>{{ t }}</li>{% endfor %}</ol>
+      <a class="btn" data-compose href="{% if m.key == 'FOCO' %}mailto:manuvinny1234@gmail.com?subject=FOCO%20Franchise%20Enquiry%20-%20DreamSpaceHub&amp;body=Hi%20DreamSpaceHub%20team%2C%0A%0AI%20am%20interested%20in%20the%20FOCO%20%28Franchisee%20Owned%20Company%20Operated%29%20model.%20Please%20find%20my%20details%20below.%0A%0AFull%20name%3A%20%0APhone%20number%3A%20%0AEmail%3A%20%0ACity%20%2F%20location%20of%20the%20property%3A%20%0AProperty%20details%20%28type%20and%20size%20in%20sq%20ft%29%3A%20%0AProperty%20owned%20by%20%28you%20%2F%20company%20%2F%20family%29%3A%20%0ACan%20you%20invest%20the%20Rs%2042.5%20lakh%20initial%20capital%3F%20%28Yes%20%2F%20No%20%2F%20Need%20to%20discuss%29%3A%20%0AAre%20you%20comfortable%20with%20the%203-year%20minimum%20lock-in%3F%20%28Yes%20%2F%20No%20%2F%20Need%20to%20discuss%29%3A%20%0AExpected%20start%20date%3A%20%0ABest%20time%20for%20a%20call%3A%20%0A%0AThank%20you.{% else %}mailto:manuvinny1234@gmail.com?subject=FOFO%20Franchise%20Enquiry%20-%20DreamSpaceHub&amp;body=Hi%20DreamSpaceHub%20team%2C%0A%0AI%20am%20interested%20in%20the%20FOFO%20%28Franchisee%20Owned%20Franchisee%20Operated%29%20model.%20Please%20find%20my%20details%20below.%0A%0AFull%20name%3A%20%0APhone%20number%3A%20%0AEmail%3A%20%0ACity%20%2F%20location%20for%20the%20studio%3A%20%0ASpace%20available%20%282%2C100%20to%203%2C500%20sq%20ft%20needed%29%3A%20%0ACeiling%20height%20of%20the%20space%20%2814%20ft%20needed%29%3A%20%0ASpace%20owned%20or%20leased%3A%20%0ACan%20you%20fund%20the%20Rs%2015%20lakh%20franchise%20fee%20and%20the%20setup%20cost%3F%20%28Yes%20%2F%20No%20%2F%20Need%20to%20discuss%29%3A%20%0AWho%20will%20run%20the%20studio%20daily%3F%20%28self%20%2F%20manager%20%2F%20team%29%3A%20%0ABusiness%20or%20sales%20experience%3A%20%0AExpected%20start%20date%3A%20%0ABest%20time%20for%20a%20call%3A%20%0A%0AThank%20you.{% endif %}">Enquire about {{ m.key }}</a>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+
+<!-- CTA -->
+<section class="jr-cta">
+  <div class="jr-cta-card">
+    <p class="eyebrow">Partner with us</p>
+    <h2>Open a DreamSpaceHub studio in your city.</h2>
+    <a class="btn dream" data-compose href="mailto:manuvinny1234@gmail.com?subject=Call%20Request%20-%20DreamSpaceHub%20Franchise%20Team&amp;body=Hi%20DreamSpaceHub%20team%2C%0A%0AI%20would%20like%20to%20speak%20with%20the%20franchise%20team.%20Please%20call%20me%20using%20the%20details%20below.%0A%0AFull%20name%3A%20%0APhone%20number%3A%20%0AEmail%3A%20%0ACity%3A%20%0APreferred%20language%20for%20the%20call%3A%20%0ABest%20day%20and%20time%20for%20a%20call%3A%20%0AModel%20you%20want%20to%20discuss%20%28FOFO%20%2F%20FOCO%20%2F%20not%20sure%20yet%29%3A%20%0AYour%20main%20questions%3A%20%0A%0AThank%20you.">Talk to the franchise team</a>
+  </div>
+</section>
+{% endblock %}

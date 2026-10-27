@@ -1,0 +1,15 @@
+{% extends "hub/base.html" %}
+{% block title %}3D Experience · DreamSpaceHub{% endblock %}
+{% block main %}
+<section class="viewer full" data-vroot>
+  <canvas data-viewer="floor-plan-projection" aria-label="Interactive 3D projection viewer"></canvas>
+  <div class="vh"><h1>3D Experience</h1>
+    <label class="pick">Choose a projection
+      <span class="selwrap"><select>
+        <optgroup label="Services">{% for it in services %}<option value="{{ it.slug }}">{{ it.title }}</option>{% endfor %}</optgroup>
+        <optgroup label="Who we serve">{% for it in industries %}<option value="{{ it.slug }}">{{ it.title }}</option>{% endfor %}</optgroup>
+      </select></span></label></div>
+  {% include "hub/_ctrl.html" %}
+  <p class="hint">Drag to look around &middot; The camera walks you in once the build completes</p>
+</section>
+{% endblock %}

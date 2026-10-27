@@ -1,0 +1,47 @@
+{% extends "hub/base.html" %}
+{% block loader %}<div class="loader" aria-hidden="true"><p>Calibrating your walkthrough</p><b class="count">0</b></div>{% endblock %}
+{% block main %}
+<section id="stage">
+  <canvas id="scene" data-video="home-hero" aria-label="A floor plan that rises into a house, then walks you in through the front door as you scroll"></canvas>
+  <div class="caps">
+    <h1 class="cap on" data-a="0" data-b=".34">See it.<small>Your floor plan, projected at true 1:1 scale.</small></h1>
+    <h2 class="cap" data-a=".34" data-b=".67">Feel it.<small>Walls up, floor under your feet. You don&rsquo;t read the plan, you live it.</small></h2>
+    <h2 class="cap" data-a=".67" data-b="1.01">Build it.<small>Before a single brick is laid.</small></h2>
+  </div>
+  <p class="hint">Scroll to walk in</p>
+</section>
+
+<section class="lightb intro" id="home">
+  <p class="lead">Walk your future home at full 1:1 scale, every room, elevation and angle, before construction begins. Want us to build it too? Our in-house studio delivers end-to-end design, construction and handover.</p>
+  <div class="row"><a class="btn dk" data-compose href="mailto:manuvinny1234@gmail.com?subject=Book%20a%20Walkthrough%20-%20DreamSpaceHub&amp;body=Hi%20DreamSpaceHub%20team%2C%0A%0AI%20would%20like%20to%20book%20a%20walkthrough.%20Please%20find%20my%20details%20below%3A%0A%0AName%3A%20%0APhone%3A%20%0ACity%3A%20%0APlot%20size%20%2F%20built-up%20area%3A%20%0ADo%20you%20have%20a%20floor%20plan%3F%20%28Yes%20%2F%20No%20%2F%20Need%20help%29%3A%20%0APreferred%20date%20and%20time%3A%20%0A%0AThank%20you.">Book a walkthrough</a></div>
+</section>
+
+<section class="why-feats why-home" id="why">
+  <p class="eyebrow">Why DreamSpaceHub</p>
+  <h2>Quality-first. Transparent. Built to last.</h2>
+  <ul class="stats">{% for n, suffix, label in stats %}
+    <li class="stat"><span class="stat-n"><b data-to="{{ n }}">0</b><i>{{ suffix }}</i></span><span class="stat-l">{{ label }}</span></li>{% endfor %}
+  </ul>
+  <ul class="feats">{% for t, d, icon in promises %}
+    <li class="fcard"><span class="ficon">{% include "hub/icon.html" with name=icon %}</span><h3>{{ t }}</h3><p>{{ d }}</p></li>{% endfor %}
+  </ul>
+</section>
+
+<section class="contact home-contact" id="contact">
+  <div>
+    <p class="eyebrow">Contact</p>
+    <h2>Send us your floor plan. We&rsquo;ll project it at 1:1.</h2>
+    <address>DreamSpaceHub Studio, Krishna Reddy Warehouses, beside ORR, Service Rd, Shamshabad, Hyderabad 501218<br>
+    <a href="tel:+917799555977">+91 7799555977</a><br><a href="mailto:enquiries@dreamspacehub.com">enquiries@dreamspacehub.com</a></address>
+  </div>
+  <form id="enq" method="post" action="{% url 'enquire' %}" novalidate>{% csrf_token %}
+    <label>Name<input name="name" autocomplete="name" required></label>
+    <label>Phone<input name="phone" type="tel" autocomplete="tel" required></label>
+    <label>Email (optional)<input name="email" type="email" autocomplete="email"></label>
+    <label>City<input name="city" required></label>
+    <label>Plot size / built-up area<input name="plot_size" placeholder="e.g. 30x40 ft"></label>
+    <label>I&rsquo;m interested in<input name="interest"></label>
+    <label>Do you have a floor plan?<select name="has_plan"><option value="yes">Yes</option><option value="no">No</option><option value="help">I need help with one</option></select></label>
+    <button class="btn" type="submit">Send enquiry</button><p class="msg" role="status" aria-live="polite"></p></form>
+</section>
+{% endblock %}

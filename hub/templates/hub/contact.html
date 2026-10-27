@@ -1,0 +1,18 @@
+{% extends "hub/base.html" %}
+{% block title %}Contact · DreamSpaceHub{% endblock %}
+{% block main %}
+<section class="contact pagehead">
+  <div><h1>Send us your floor plan. We&rsquo;ll project it at 1:1.</h1><p class="lead2">One studio, brief to keys.</p>
+    <address>DreamSpaceHub Studio, Krishna Reddy Warehouses, beside ORR, Service Rd, Shamshabad, Hyderabad 501218<br>
+    <a href="tel:+917799555977">+91 7799555977</a><br><a href="mailto:enquiries@dreamspacehub.com">enquiries@dreamspacehub.com</a></address></div>
+  <form id="enq" method="post" action="{% url 'enquire' %}" novalidate>{% csrf_token %}
+    <label>Name<input name="name" autocomplete="name" required></label>
+    <label>Phone<input name="phone" type="tel" autocomplete="tel" required></label>
+    <label>Email (optional)<input name="email" type="email" autocomplete="email"></label>
+    <label>City<input name="city" required></label>
+    <label>Plot size / built-up area<input name="plot_size" placeholder="e.g. 30x40 ft"></label>
+    <label>I&rsquo;m interested in<input name="interest" value="{{ interest }}"></label>
+    <label>Do you have a floor plan?<select name="has_plan"><option value="yes">Yes</option><option value="no">No</option><option value="help">I need help with one</option></select></label>
+    <button class="btn" type="submit">Book my walkthrough</button><p class="msg" role="status" aria-live="polite"></p></form>
+</section>
+{% endblock %}

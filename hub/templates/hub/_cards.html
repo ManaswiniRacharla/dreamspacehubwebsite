@@ -1,0 +1,13 @@
+{% load static %}
+{% if kind == 'industry' %}
+<ul class="cards cards-industry">{% for it in items %}
+<li><a href="{% url kind it.slug %}">
+<span class="tnum" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+<span class="timg"><img src="{% static 'hub/images/' %}{{ it.slug }}.png" alt="{{ it.title }}" width="720" height="540" loading="lazy"></span>
+<h3>{{ it.title }}</h3><p>{{ it.blurb }}</p></a></li>{% endfor %}</ul>
+{% else %}
+<ul class="cards cards-{{ kind }}">{% for it in items %}
+<li><a href="{% url kind it.slug %}"><span class="cnum" aria-hidden="true">{{ forloop.counter|stringformat:"02d" }}</span>
+<span class="cimg"><img src="{% static 'hub/images/' %}{{ it.slug }}.png" alt="{{ it.title }}" width="720" height="900" loading="lazy"></span>
+<h3>{{ it.title }}</h3><p>{{ it.blurb }}</p></a></li>{% endfor %}</ul>
+{% endif %}

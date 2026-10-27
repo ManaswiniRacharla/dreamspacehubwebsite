@@ -1,0 +1,21 @@
+{% extends "hub/base.html" %}
+{% block title %}Why us · DreamSpaceHub{% endblock %}
+{% block main %}
+<section class="pagehead"><h1>Quality-first. Transparent. Built to last.</h1><p class="lead2">From projection precision to construction excellence, every phase validated and every cost protected.</p></section>
+
+<section class="flush why-stats">
+  <ul class="stats">{% for n, suffix, label in stats %}
+    <li class="stat"><span class="stat-n"><b data-to="{{ n }}">0</b><i>{{ suffix }}</i></span><span class="stat-l">{{ label }}</span></li>{% endfor %}
+  </ul>
+</section>
+
+<section class="why-feats">
+  <p class="eyebrow">Our promise</p>
+  <h2>Everything you can count on</h2>
+  <ul class="feats">{% for t, d, icon in promises %}
+    <li class="fcard"><span class="ficon">{% include "hub/icon.html" with name=icon %}</span><h3>{{ t }}</h3><p>{{ d }}</p></li>{% endfor %}
+  </ul>
+</section>
+
+<section class="cta"><a class="btn" href="{% url 'contact' %}">Talk to the studio</a></section>
+{% endblock %}

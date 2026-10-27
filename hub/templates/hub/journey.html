@@ -1,0 +1,65 @@
+{% extends "hub/base.html" %}
+{% load static %}
+{% block title %}Journey · DreamSpaceHub{% endblock %}
+{% block main %}
+
+<!-- HERO: site navy, copper glow, blueprint grid, concentric rings -->
+<section class="jr-hero">
+  <p class="eyebrow">The DreamSpaceHub journey</p>
+  <h1>Your journey, <em>phase by phase</em></h1>
+  <p class="lead2">From first sketch to final handover, every step is shaped around your decisions.</p>
+  <ol class="jr-track" aria-label="Journey steps">{% for t, d in journey %}
+    <li><a href="#step-{{ forloop.counter }}"><span class="jr-dot">{{ forloop.counter }}</span><span class="jr-name">{{ t }}</span></a></li>{% endfor %}
+  </ol>
+</section>
+
+<!-- TIMELINE: warm cream, copper spine that draws itself as you scroll -->
+<section class="jr-line">
+  <div class="jr-spine" aria-hidden="true"><i></i></div>
+  <ol class="jr-steps">{% for t, d in journey %}
+    <li class="jr-step" id="step-{{ forloop.counter }}">
+      <span class="jr-node" aria-hidden="true">{{ forloop.counter }}</span>
+      <div class="jr-media">
+        <span class="jr-ghost" aria-hidden="true">0{{ forloop.counter }}</span>
+        <div class="jr-frame">
+          <div class="clip" data-i="{{ forloop.counter0 }}"><canvas data-video="journey-{{ forloop.counter }}" width="960" height="600" aria-label="3D clip: {{ t }}"></canvas><span class="clip-tag">5 s &middot; 3D</span></div>
+        </div>
+      </div>
+      <div class="jr-copy">
+        <span class="jr-ico">{% if forloop.counter == 1 %}{% include "hub/icon.html" with name="plan" %}{% elif forloop.counter == 2 %}{% include "hub/icon.html" with name="sparkle" %}{% elif forloop.counter == 3 %}{% include "hub/icon.html" with name="wand" %}{% else %}{% include "hub/icon.html" with name="shield" %}{% endif %}</span>
+        <span class="step">Step {{ forloop.counter }} of {{ journey|length }}</span>
+        <h3>{{ t }}</h3>
+        <p>{{ d }}</p>
+      </div>
+    </li>{% endfor %}
+  </ol>
+</section>
+
+<!-- CTA: navy panel with copper rings -->
+<section class="jr-cta">
+  <div class="jr-cta-card">
+    <p class="eyebrow">Ready when you are</p>
+    <h2>Walk into your home before it is built.</h2>
+    <a class="btn dream" id="startJourney" data-compose href="mailto:manuvinny1234@gmail.com?subject=Start%20Your%20Journey%20-%20DreamSpaceHub%20Enquiry&amp;body=Hi%20DreamSpaceHub%20team%2C%0A%0AI%20would%20like%20to%20start%20my%20journey%20with%20you.%20Please%20find%20my%20details%20below.%0A%0AFull%20name%3A%20%0APhone%20number%3A%20%0AEmail%3A%20%0ACity%20%2F%20location%20of%20the%20project%3A%20%0APlot%20size%20%2F%20built-up%20area%3A%20%0AProject%20type%20(home%2C%20villa%2C%20apartment%2C%20commercial)%3A%20%0ABudget%20range%3A%20%0AExpected%20start%20date%3A%20%0APreferred%20time%20for%20a%20call%3A%20%0AAnything%20else%20we%20should%20know%3A%20%0A%0AThank%20you.">Start your journey</a>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{% static 'hub/js/clip.js' %}"></script>
+<script>
+/* journey: spine fills with scroll, steps rise in, active node lights up */
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const steps = [...document.querySelectorAll(".jr-step")], fill = document.querySelector(".jr-spine i"), wrap = document.querySelector(".jr-line");
+  if (!steps.length || !wrap) return;
+  document.documentElement.classList.add("jr-js");
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .18 });
+  steps.forEach(s => io.observe(s));
+  const upd = () => {
+    const r = wrap.getBoundingClientRect(), vh = innerHeight, p = Math.min(1, Math.max(0, (vh * .55 - r.top) / r.height));
+    fill.style.transform = "scaleY(" + p + ")";
+    steps.forEach(s => s.classList.toggle("lit", s.getBoundingClientRect().top < vh * .55));
+  };
+  if (reduce) { steps.forEach(s => s.classList.add("in", "lit")); fill.style.transform = "scaleY(1)"; return; }
+  addEventListener("scroll", upd, { passive: true }); addEventListener("resize", upd); upd();
+})();
+</script>{% endblock %}

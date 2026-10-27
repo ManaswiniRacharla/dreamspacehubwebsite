@@ -1,0 +1,58 @@
+{% load static %}<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% block title %}DreamSpaceHub · See it. Feel it. Build it.{% endblock %}</title>
+<meta name="description" content="Walk your home in full-scale projection before you build. Floor plan, interior and elevation projection, plus end-to-end build delivery.">
+<meta name="theme-color" content="#0C1A2B">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'hub/css/site.css' %}">
+</head><body data-video="{% static 'hub/video/' %}">
+{% block loader %}{% endblock %}
+<div class="curtain" aria-hidden="true"></div>
+<header class="bar">
+  <a href="{% url 'home' %}" class="logo" aria-label="DreamSpaceHub home">
+  <svg viewBox="0 0 262 92" role="img" aria-hidden="true">
+    <!-- gold building icon -->
+    <g fill="none" stroke="#D4A24C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M132 34 L156 12 L176 26"/>
+      <path d="M162 34 V8 H196 V34"/>
+      <path d="M170 15 H188 M170 21 H188 M170 27 H188"/>
+      <path d="M196 20 H214 V34"/>
+      <path d="M204 26 H208"/>
+      <path d="M128 34 H222"/>
+    </g>
+    <!-- wordmark -->
+    <text x="0" y="66" font-family="Manrope,sans-serif" font-weight="800" font-size="36"
+          textLength="124" lengthAdjust="spacingAndGlyphs" fill="currentColor">DREAM</text>
+    <text x="134" y="66" font-family="Manrope,sans-serif" font-weight="800" font-size="36"
+          textLength="124" lengthAdjust="spacingAndGlyphs" fill="#D4A24C">SPACE</text>
+    <!-- HUB with side lines -->
+    <path d="M64 82 H112 M150 82 H198" stroke="#D4A24C" stroke-width="1.4" stroke-linecap="round"/>
+    <text x="131" y="88" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="600"
+          font-size="15" letter-spacing="6" fill="currentColor">HUB</text>
+  </svg>
+</a>
+  <div class="barr"><a class="btn small inq" href="{% url 'home' %}#contact">Enquire</a>
+  <button id="menuBtn" class="btn small" aria-expanded="false" aria-controls="menu">Menu</button>
+  <a class="btn small dream" id="startDream" href="mailto:manuvinny1234@gmail.com?subject=Start%20Your%20Dream%20-%20DreamSpaceHub%20Enquiry&amp;body=Hi%20DreamSpaceHub%20team%2C%0A%0AI%20would%20like%20to%20start%20my%20dream%20project.%0A%0AName%3A%20%0APhone%3A%20%0ACity%3A%20%0APlot%20size%20%2F%20built-up%20area%3A%20%0AI%27m%20interested%20in%3A%20%0A%0AThank%20you.">Start Your Dream</a></div>
+</header>
+<nav id="menu" aria-label="Main"><ul>{% for name, label in nav %}<li><a href="{% if name == 'why' %}{% url 'home' %}#why{% elif name == 'contact' %}{% url 'home' %}#contact{% else %}{% url name %}{% endif %}">{{ label }}</a></li>{% endfor %}</ul></nav>
+<main id="top">{% block main %}{% endblock %}</main>
+<footer>
+  <div><strong>DreamSpaceHub</strong><br>Authorised master franchisee of WalkThePlan, South India.<br>A vertical of Kala Proptech.</div>
+  <address>Krishna Reddy Warehouses, beside ORR, Service Rd, Shamshabad, Hyderabad 501218<br>
+    <a href="tel:+917799555977">+91 7799555977</a> &middot; <a href="mailto:enquiries@dreamspacehub.com">enquiries@dreamspacehub.com</a><br>
+    <a href="https://instagram.com/dreamspacehubofficial">Instagram</a> &middot; <a href="https://wa.me/917799555977">WhatsApp</a></address>
+  <small>&copy; 2026 DreamSpaceHub. All rights reserved.</small>
+</footer>
+{{ plans|json_script:"plans" }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="{% static 'hub/js/projection.js' %}"></script>
+<script src="{% static 'hub/js/site.js' %}"></script>
+<script src="{% static 'hub/js/video.js' %}"></script>
+<script src="{% static 'hub/js/dropdown.js' %}"></script>
+{% block scripts %}{% endblock %}
+</body></html>
